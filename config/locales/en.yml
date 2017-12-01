@@ -1,0 +1,71 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  hello: "Hello world"
+
+  api:
+    auth:
+      forgot_password:
+        errors:
+          email: '^Invalid email address'
+        success:
+          email_sent: 'An email is sent to your registered email.'
+      signup:
+        success:
+          email_sent: "We've sent you a verification email, please view your email to verify this account."
+      resend_confirmation:
+        success:
+          email_sent: 'We sent you another email to verify your account.'
+
+
+  cancan:
+    unauthorized:
+      manage:
+        all: 'You do not have access to %{action} %{subject}!'
+        signup: 'You need to signup to access this action.'
+
+  messages:
+    http:
+      _200: 'Ok'
+      _201: 'Record created'
+      _400: 'Bad request'
+      _401: 'Access is unauthorized'
+      _403: 'Access is forbidden'
+      _404: 'Record not found'
+      _500: 'Connection was lost'
+
+    authentication:
+      login:
+        email_password_mismatch: 'Email or Password do not match'
+        oauth2: 'The email address you have entered is already registered before'
+        refresh_token: 'refresh token is deprecated, please login'
+      timeout: 'Authentication timeout'
