@@ -16,6 +16,15 @@ Rails.application.routes.draw do
       get    "profile/:id" => "profile#show_profile"
       put    "profile" => "profile#update"
       post   "profile/upload_avatar" => "profile#upload_avatar"
+
+      # Doctor wall
+      post   "wall" => "wall#create"
+      get    "wall" => "wall#show"
+      put    "wall" => "wall#update"
+      get    "wall/:uid" => "wall#show_wall"
+
+      # Add skill
+      post "wall/skills" => "wall#add_skills"
     end
   end
 
