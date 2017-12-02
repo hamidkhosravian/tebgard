@@ -36,7 +36,17 @@ module Api
         wall.skill_list << params[:skills]
 
         wall.save!
-        render json: {response: wall, status: 201}, status: 201
+        render json: {response: wall.skill_list, status: 201}, status: 201
+      end
+
+      def remove_skills
+        param! :skills, Array, required: true, blank: false
+
+        wall = current_user.profile.wall
+        wall.skill_list -= params[:skills]
+
+        wall.save!
+        render json: {response: wall.skill_list, status: 200}, status: 200
       end
 
       def show_wall

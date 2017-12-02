@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
       # Add skill
       post "wall/skills" => "wall#add_skills"
+      delete "wall/skills" => "wall#remove_skills"
     end
   end
 
