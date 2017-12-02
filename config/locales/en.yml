@@ -69,3 +69,6 @@ en:
         oauth2: 'The email address you have entered is already registered before'
         refresh_token: 'refresh token is deprecated, please login'
       timeout: 'Authentication timeout'
+
+    phone:
+      normalize: "please check your phone number."

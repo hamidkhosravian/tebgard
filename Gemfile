@@ -56,6 +56,7 @@ gem "validates_timeliness"
 # Error Tracker
 gem "airbrake", "~> 6.0"
 # Upload Handler
+# gem 'fog'
 gem "paperclip", "~> 5.1.0"
 # mailchimp gem
 gem "gibbon"
@@ -65,6 +66,7 @@ gem "geocoder"
 gem "acts_as_votable" # like or dislike
 gem "acts-as-taggable-on" # add tags
 gem "impressionist" # count views
+gem 'telephone_number'
 
 gem "rubocop", require: false
 gem "pry-rails", group: :development

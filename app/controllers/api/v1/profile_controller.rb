@@ -8,7 +8,7 @@ module Api
         profile.first_name = params[:first_name] if params[:first_name]
         profile.last_name = params[:last_name] if params[:last_name]
         profile.description = params[:description] if params[:description]
-        profile.phone = params[:phone] if !current_user.phone && params[:phone]
+        profile.phone = params[:phone] if !current_user.phone && params[:phone] && TelephoneNumber.parse(params[:phone]).valid?
         profile.birthdate = params[:birthdate] if params[:birthdate]
         profile.email = params[:email] if params[:email]
         profile.gender = params[:gender] if params[:gender]
