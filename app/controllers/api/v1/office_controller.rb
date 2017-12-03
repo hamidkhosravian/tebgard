@@ -19,7 +19,7 @@ module Api
         office.description = params[:description]
         office.save!
 
-        render json: {response: office, status: 201}, status: 201
+        render json: { response: office, status: 201 }, status: 201
       end
 
       def show
@@ -27,7 +27,7 @@ module Api
 
         office = Office.find_by(uuid: params[:uid])
 
-        render json: {response: office, status: 200}, status: 200
+        render json: { response: office, status: 200 }, status: 200
       end
 
       def update
@@ -41,7 +41,7 @@ module Api
         office.description = params[:description] if params[:description]
         office.save!
 
-        render json: {response: office, status: 200}, status: 200
+        render json: { response: office, status: 200 }, status: 200
       end
 
       def upload_image
@@ -53,7 +53,7 @@ module Api
         picture.imageable = office
         picture.save!
 
-        render json: {response: office.pictures , status: 201}, status: 201
+        render json: { response: office.pictures, status: 201 }, status: 201
       end
 
       def destroy

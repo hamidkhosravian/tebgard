@@ -15,23 +15,23 @@ module Api
         profile.username = params[:username] if params[:username]
 
         profile.save!
-        render json: {response: current_user.profile, status: 200}
+        render json: { response: current_user.profile, status: 200 }
       end
 
       def upload_avatar
         current_user.profile.avatar = params[:avatar]
         current_user.profile.save!
-        render json: {response: current_user.profile, status: 201}, status: 201
+        render json: { response: current_user.profile, status: 201 }, status: 201
       end
 
       def show
-        render json: {response: current_user.profile, status: 200}
+        render json: { response: current_user.profile, status: 200 }
       end
 
       def show_profile
         param! :id, Integer, required: true, blank: false
         profile = Profile.find_by(id: params[:id])
-        render json: {response: profile, status: 200}
+        render json: { response: profile, status: 200 }
       end
     end
   end

@@ -4,6 +4,7 @@ module Api
       include Helpers::AuthHelper
 
       private
+
       # before anything check user authentication
       def authenticate_user_from_token!
         authenticate = authenticate!
