@@ -37,6 +37,21 @@ Rails.application.routes.draw do
       # find nearest
       post   "nearest/offices" => "find_nearest#office"
       post   "nearest/offices_by_tags" => "find_nearest#offices_by_tags"
+
+      # posts
+      get    "posts" => "post#index"
+      get    "posts/:uid" => "post#show"
+      post   "posts" => "post#create"
+      put    "posts/:uid" => "post#update"
+      delete    "posts/:uid" => "post#update"
+
+      # posts
+      get    "articles" => "article#index"
+      get    "articles/:uid" => "article#show"
+      post   "articles" => "article#create"
+      put    "articles/:uid" => "article#update"
+      delete    "articles/:uid" => "article#update"
+      
     end
   end
 end

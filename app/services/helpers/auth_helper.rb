@@ -36,6 +36,10 @@ module Helpers::AuthHelper
     @current_user
   end
 
+  def wall
+    @current_user.profile.wall
+  end
+
   def extract_custom_http_message_code(*args)
     custom_message = args[2][:message] if args[2].present? && args[2][:message].present?
     custom_code = args[2][:code] if args[2].present? && args[2][:code].present?
