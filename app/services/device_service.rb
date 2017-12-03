@@ -6,8 +6,8 @@ class DeviceService
 
   def create_device_token(user)
     user_agent = UserAgent.parse @request.user_agent
-    device_uid = @params.try(:[], 'device').try(:[], 'uid') || @request.session.id
-    device_name = @params.try(:[], 'device').try(:[], 'name') || user_agent.browser
+    device_uid = @params.try(:[], "device").try(:[], "uid") || @request.session.id
+    device_name = @params.try(:[], "device").try(:[], "name") || user_agent.browser
 
     device = user.devices.find_by(device_name: "#{device_name}*****#{device_uid}")
     if device
@@ -22,18 +22,18 @@ class DeviceService
   def create_device(user)
     device = user.devices.new
     user_agent = UserAgent.parse @request.user_agent
-    device_uid = @params.try(:[], 'device').try(:[], 'uid') || @request.session.id
-    device_name = @params.try(:[], 'device').try(:[], 'name') || user_agent.browser
+    device_uid = @params.try(:[], "device").try(:[], "uid") || @request.session.id
+    device_name = @params.try(:[], "device").try(:[], "name") || user_agent.browser
 
-    if user_agent.first.comment.to_s.downcase.include? 'android'
+    if user_agent.first.comment.to_s.downcase.include? "android"
       device.device_os = 0
-    elsif user_agent.first.comment.to_s.downcase.include? 'ios'
+    elsif user_agent.first.comment.to_s.downcase.include? "ios"
       device.device_os = 1
-    elsif user_agent.first.comment.to_s.downcase.include? 'windows'
+    elsif user_agent.first.comment.to_s.downcase.include? "windows"
       device.device_os = 2
-    elsif user_agent.first.comment.to_s.downcase.include? 'linux'
+    elsif user_agent.first.comment.to_s.downcase.include? "linux"
       device.device_os = 3
-    elsif user_agent.first.comment.to_s.downcase.include? 'os' || 'macintosh'
+    elsif user_agent.first.comment.to_s.downcase.include? "os" || "macintosh"
       device.device_os = 4
     end
 

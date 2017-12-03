@@ -2,7 +2,7 @@ class Profile < ApplicationRecord
   belongs_to :user
   has_one    :wall
 
-  has_attached_file :avatar, styles: { thumbnail: '100x100>', medium: '400x400>', large: '700x700>' }, url: '/Users/:user_id-:username/Profile/Avatar/:filename'
+  has_attached_file :avatar, styles: { thumbnail: "100x100>", medium: "400x400>", large: "700x700>" }, url: "/Users/:user_id-:username/Profile/Avatar/:filename"
   validates_attachment_content_type :avatar, content_type: /\Aimage/
   validates_with AttachmentSizeValidator, attributes: :avatar, less_than: 5.megabytes
 

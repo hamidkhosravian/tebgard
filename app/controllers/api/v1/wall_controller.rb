@@ -21,7 +21,7 @@ module Api
         if params[:doctor_code] && !wall.doctor_code == params[:doctor_code]
           wall.doctor_code = params[:doctor_code]
           wall.active = false
-          current_user.profile.role = 'visitor'
+          current_user.profile.role = "visitor"
           current_user.profile.save!
         end
         wall.save!

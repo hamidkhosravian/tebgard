@@ -11,8 +11,8 @@ class UserService
   # if somthing was wrong return error
   def register(request)
     firebase = FirebaseService.new(@params, request).firebase_verification
-    phone_number = firebase.try(:[], 'users').try(:[], 0).try(:[], 'phoneNumber')
-    local_id = firebase.try(:[], 'users').try(:[], 0).try(:[], 'localId')
+    phone_number = firebase.try(:[], "users").try(:[], 0).try(:[], "phoneNumber")
+    local_id = firebase.try(:[], "users").try(:[], 0).try(:[], "localId")
     user = User.create!(email: "#{local_id}@firbase.com", password: Devise.friendly_token[0, 20], phone: phone_number)
     create_token(user, request)
   end

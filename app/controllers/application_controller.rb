@@ -12,7 +12,7 @@ class ApplicationController < ActionController::API
   protected
 
   def render_jwt_time_out
-    render json: Helpers::ErrorHelper.error!(I18n.t('messages.authentication.timeout'), 401), status: 401
+    render json: Helpers::ErrorHelper.error!(I18n.t("messages.authentication.timeout"), 401), status: 401
   end
 
   def render_jwt_error(error)
@@ -24,7 +24,7 @@ class ApplicationController < ActionController::API
   end
 
   def render_jwt_auth_error
-    render json: Helpers::ErrorHelper.error!(I18n.t('messages.http._401'), 401), status: 401
+    render json: Helpers::ErrorHelper.error!(I18n.t("messages.http._401"), 401), status: 401
   end
 
   def render_record_invalid(error)
@@ -40,6 +40,6 @@ class ApplicationController < ActionController::API
   end
 
   def render_server_error
-    render json: Helpers::ErrorHelper.error!('server error', 500), status: 500
+    render json: Helpers::ErrorHelper.error!("server error", 500), status: 500
   end
 end
