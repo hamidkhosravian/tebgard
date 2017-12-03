@@ -5,7 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 5.1.4"
 # Use postgresql as the database for Active Record
@@ -27,13 +26,13 @@ gem "bcrypt", "~> 3.1.7"
 gem "rack-cors"
 
 # authentication and authorization
-gem "jwt"
+gem "cancancan"
 gem "devise"
-gem "omniauth-oauth2"
-gem "omniauth-twitter"
+gem "jwt"
 gem "omniauth-facebook"
 gem "omniauth-google-oauth2"
-gem "cancancan"
+gem "omniauth-oauth2"
+gem "omniauth-twitter"
 
 # database related
 gem "kaminari"
@@ -47,28 +46,30 @@ gem "rails_param"
 
 # Async
 gem "sidekiq"
-gem "sidekiq-status"
-gem "sidekiq-failures"
 gem "sidekiq-cron"
+gem "sidekiq-failures"
+gem "sidekiq-status"
 
 # Validation
 gem "validates_timeliness"
 # Error Tracker
 gem "airbrake", "~> 6.0"
 # Upload Handler
+# gem 'fog'
 gem "paperclip", "~> 5.1.0"
 # mailchimp gem
 gem "gibbon"
 
 # Social Network Gems
-gem "geocoder"
-gem "acts_as_votable" # like or dislike
 gem "acts-as-taggable-on" # add tags
+gem "acts_as_votable" # like or dislike
+gem "geocoder"
 gem "impressionist" # count views
+gem "telephone_number"
 
-gem "rubocop", require: false
-gem "pry-rails", group: :development
 gem "dry-validation"
+gem "pry-rails", group: :development
+gem "rubocop", require: false
 gem "useragent"
 
 # swagger in concerns
@@ -76,7 +77,7 @@ gem "swagger-docs"
 
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
-  gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
+  gem "byebug", platforms: %i[mri mingw x64_mingw]
   gem "listen", ">= 3.0.5", "< 3.2"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "spring"
@@ -84,18 +85,18 @@ group :development, :test do
   # Use Capistrano for deployment
   gem "capistrano-rails"
 
-  gem "faker"
   gem "factory_bot_rails"
+  gem "faker"
 end
 
 group :test do
   # gem "bullet"
-  gem "rspec-rails", "~> 3.5"
-  gem "jmespath"
   gem "database_cleaner"
+  gem "jmespath"
+  gem "rspec-rails", "~> 3.5"
   gem "shoulda-matchers"
   gem "simplecov", require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]

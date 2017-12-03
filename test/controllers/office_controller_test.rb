@@ -1,6 +1,6 @@
 require "test_helper"
 
-class WallTest < ActiveSupport::TestCase
+class OfficeControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

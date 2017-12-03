@@ -354,6 +354,7 @@ GEM
     swagger-docs (0.2.9)
       activesupport (>= 3)
       rails (>= 3)
+    telephone_number (1.2.2)
     thor (0.20.0)
     thread_safe (0.3.6)
     timeliness (0.3.8)
@@ -419,6 +420,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   swagger-docs
+  telephone_number
   tzinfo-data
   useragent
   validates_timeliness

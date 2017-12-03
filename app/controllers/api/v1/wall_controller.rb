@@ -7,12 +7,12 @@ module Api
         param! :doctor_code, String, required: true, blank: false
 
         wall = Wall.create!(doctor_code: params[:doctor_code], profile: current_user.profile)
-        render json: {response: wall, status: 201}, status: 201
+        render json: { response: wall, status: 201 }, status: 201
       end
 
       def show
         wall = current_user.profile.wall
-        render json: {response: wall, status: 200}, status: 200
+        render json: { response: wall, status: 200 }, status: 200
       end
 
       def update
@@ -26,7 +26,7 @@ module Api
         end
         wall.save!
 
-        render json: {response: wall, status: 200}, status: 200
+        render json: { response: wall, status: 200 }, status: 200
       end
 
       def add_skills
@@ -36,7 +36,7 @@ module Api
         wall.skill_list << params[:skills]
 
         wall.save!
-        render json: {response: wall.skill_list, status: 201}, status: 201
+        render json: { response: wall.skill_list, status: 201 }, status: 201
       end
 
       def remove_skills
@@ -46,14 +46,14 @@ module Api
         wall.skill_list -= params[:skills]
 
         wall.save!
-        render json: {response: wall.skill_list, status: 200}, status: 200
+        render json: { response: wall.skill_list, status: 200 }, status: 200
       end
 
       def show_wall
         param! :uid, String, required: true, blank: false
 
         wall = Wall.find_by(uuid: params[:uid])
-        render json: {response: wall, status: 200}, status: 200
+        render json: { response: wall, status: 200 }, status: 200
       end
     end
   end

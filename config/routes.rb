@@ -24,9 +24,15 @@ Rails.application.routes.draw do
       get    "wall/:uid" => "wall#show_wall"
 
       # Add skill
-      post "wall/skills" => "wall#add_skills"
+      post   "wall/skills" => "wall#add_skills"
       delete "wall/skills" => "wall#remove_skills"
+
+      # Doctor office
+      post     "office" => "office#create"
+      get      "office/:uid" => "office#show"
+      put      "office/:uid" => "office#update"
+      delete   "office/:uid" => "office#destroy"
+      post "office/:uid/upload_image" => "office#upload_image"
     end
   end
-
 end

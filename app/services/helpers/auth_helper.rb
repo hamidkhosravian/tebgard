@@ -5,7 +5,7 @@ module Helpers::AuthHelper
   def refresh_user!(token, request)
     auth_token = AuthToken.find_by(refresh_token: token)
     # refresh token expires
-    raise AuthError, I18n.t("messages.authentication.login.refresh_token") if auth_token.nil? || auth_token.refresh_token_expires_at.nil? || !(auth_token.refresh_token_expires_at.to_date > Time.now)
+    raise AuthError, I18n.t("messages.authentication.login.refresh_token") if auth_token.nil? || auth_token.refresh_token_expires_at.nil? || auth_token.refresh_token_expires_at.to_date <= Time.now
 
     device = auth_token.tokenable
     create_token(device, request)
@@ -22,9 +22,8 @@ module Helpers::AuthHelper
     message, code = extract_custom_http_message_code(*args)
     ability = ::Ability.new(current_user)
     ability.authorize!(*args)
-
-    rescue CanCan::AccessDenied => ex
-      Helpers::ErrorHelper.error!(message, code)
+  rescue CanCan::AccessDenied => ex
+    Helpers::ErrorHelper.error!(message, code)
   end
 
   # authenticate current request
@@ -45,7 +44,6 @@ module Helpers::AuthHelper
     [message, code]
   end
 
-
   # create new token for user
   # this method will invalidate last token
   def create_token(device, request)
@@ -62,7 +60,7 @@ module Helpers::AuthHelper
       token: device.token.token,
       token_expires_at: device.token.token_expires_at,
       refresh_token: device.token.refresh_token,
-      refresh_token_expires_at: device.token.refresh_token_expires_at,
+      refresh_token_expires_at: device.token.refresh_token_expires_at
     }.to_json
   end
 end

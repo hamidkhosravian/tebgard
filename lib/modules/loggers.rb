@@ -25,19 +25,19 @@ module Modules
 
     private
 
-      def self.make_log_file(path)
-        log_address = "#{Rails.root.to_s}#{path}"
-        make_dir(File.dirname(log_address))
-        make_file(log_address)
-        log_address
-      end
+    def self.make_log_file(path)
+      log_address = "#{Rails.root}#{path}"
+      make_dir(File.dirname(log_address))
+      make_file(log_address)
+      log_address
+    end
 
-      def self.make_dir(path)
-        FileUtils.mkpath path unless File.directory? path
-      end
+    def self.make_dir(path)
+      FileUtils.mkpath path unless File.directory? path
+    end
 
-      def self.make_file(path_to_file)
-        FileUtils.touch path_to_file unless File.exists? path_to_file
-      end
+    def self.make_file(path_to_file)
+      FileUtils.touch path_to_file unless File.exist? path_to_file
+    end
   end
 end

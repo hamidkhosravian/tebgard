@@ -13,7 +13,7 @@ class UserService
     firebase = FirebaseService.new(@params, request).firebase_verification
     phone_number = firebase.try(:[], "users").try(:[], 0).try(:[], "phoneNumber")
     local_id = firebase.try(:[], "users").try(:[], 0).try(:[], "localId")
-    user = User.create!(email: "#{local_id}@firbase.com", password: Devise.friendly_token[0,20], phone: phone_number)
+    user = User.create!(email: "#{local_id}@firbase.com", password: Devise.friendly_token[0, 20], phone: phone_number)
     create_token(user, request)
   end
 
@@ -30,7 +30,7 @@ class UserService
         email_provider = auth.info.email || "#{auth.info.name.delete(' ')}-#{auth.uid}@#{auth.provider}.com"
         user = User.new(
           email: email ? email : email_provider,
-          password: Devise.friendly_token[0,20]
+          password: Devise.friendly_token[0, 20]
         )
         user.save!
       end
@@ -45,14 +45,15 @@ class UserService
   end
 
   private
-   def create_token(user, request)
-     device_service = DeviceService.new(@params, request)
-     device = device_service.create_device_token(user)
-     token = {
-       token: device.token.token,
-       token_expires_at: device.token.token_expires_at,
-       refresh_token: device.token.refresh_token,
-       refresh_token_expires_at: device.token.refresh_token_expires_at,
-     }.to_json
-   end
+
+  def create_token(user, request)
+    device_service = DeviceService.new(@params, request)
+    device = device_service.create_device_token(user)
+    token = {
+      token: device.token.token,
+      token_expires_at: device.token.token_expires_at,
+      refresh_token: device.token.refresh_token,
+      refresh_token_expires_at: device.token.refresh_token_expires_at
+    }.to_json
+  end
 end

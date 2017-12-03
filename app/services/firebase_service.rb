@@ -9,7 +9,7 @@ class FirebaseService
     conn = Faraday.new base_url
     response = conn.post do |req|
       req.url "getAccountInfo?key=#{ENV['FIREBASE_API_KEY']}"
-      req.body = {idToken: @params["firebase_token"]}.to_json
+      req.body = { idToken: @params["firebase_token"] }.to_json
       req.headers["Content-Type"] = "application/json"
     end
 
