@@ -4,6 +4,7 @@ module Api
       before_action :authenticate_user_from_token!
 
       def create
+        byebug
         param! :latitude, String, required: true, blank: false
         param! :longitude, String, required: true, blank: false
         param! :address, String, required: true, blank: false

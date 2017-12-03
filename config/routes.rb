@@ -33,6 +33,10 @@ Rails.application.routes.draw do
       put      "office/:uid" => "office#update"
       delete   "office/:uid" => "office#destroy"
       post "office/:uid/upload_image" => "office#upload_image"
+
+      # find nearest
+      post   "nearest/offices" => "find_nearest#office"
+      post   "nearest/offices_by_tags" => "find_nearest#offices_by_tags"
     end
   end
 end
