@@ -23,11 +23,10 @@ module Api
         param! :longitude, Float, required: true, blank: false
         param! :tags, Array, required: true, blank: false
 
-        offices = Office.where(wall: Wall.tagged_with(params[:tags], :any => true).except(:select)).near([params[:latitude],params[:longitude]],params[:distance], units: :km).order("created_at DESC").page(params[:page]).per(params[:limit])
+        offices = Office.where(wall: Wall.tagged_with(params[:tags], any: true).except(:select)).near([params[:latitude],params[:longitude]],params[:distance], units: :km).order("created_at DESC").page(params[:page]).per(params[:limit])
 
         render json: offices, adapter: :json, meta: pagination_dict(offices)
       end
-
     end
   end
 end
