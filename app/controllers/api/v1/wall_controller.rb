@@ -52,7 +52,7 @@ module Api
       def show_wall
         param! :uid, String, required: true, blank: false
 
-        wall = Wall.find_by(uuid: params[:uid])
+        wall = Wall.find_by!(uuid: params[:uid])
         render json: { response: wall, status: 200 }, status: 200
       end
     end

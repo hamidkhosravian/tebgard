@@ -1,6 +1,8 @@
 class Wall < ApplicationRecord
   belongs_to :profile
   has_many   :offices
+  has_many   :posts
+  has_many   :articles
 
   validates_uniqueness_of :doctor_code
   acts_as_taggable_on :skills

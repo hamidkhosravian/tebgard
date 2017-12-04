@@ -6,6 +6,8 @@ class ApplicationController < ActionController::API
   rescue_from RailsParam::Param::InvalidParameterError, with: :render_params_invalid
   rescue_from AuthError, with: :render_jwt_auth_error
   rescue_from BadRequestError, with: :render_bad_request_error
+  rescue_from ObjectError, with: :bad_object_error
+  rescue_from ActiveRecord::RecordNotFound, with: :bad_object_error
   rescue_from ArgumentError, with: :render_bad_request_error
   rescue_from ServerError, with: :render_server_error
 
@@ -37,6 +39,10 @@ class ApplicationController < ActionController::API
 
   def render_bad_request_error(error)
     render json: Helpers::ErrorHelper.error!(error, 400), status: 400
+  end
+
+  def bad_object_error
+    render json: { response: I18n.t("messages.http._404"), status: 404 }.to_json, status: 404
   end
 
   def render_server_error
