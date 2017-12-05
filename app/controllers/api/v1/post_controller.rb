@@ -4,7 +4,6 @@ module Api
       before_action :authenticate_user_from_token!
 
       def index
-        byebug
         posts = wall.posts
         render json: { response: posts, status: 200 }, status: 200
       end

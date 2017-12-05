@@ -2,12 +2,12 @@ class Post < ApplicationRecord
   belongs_to :wall
   acts_as_taggable_on :post_tags
 
-  validates :body, :presence => true
+  validates :body, presence: true
   before_validation :generate_uuid
 
-  has_one :picture, as: :imageable, :dependent => :destroy
-  has_one :multimedium, as: :multimediable, :dependent => :destroy
-  has_one :document, as: :documentable, :dependent => :destroy
+  has_one :picture, as: :imageable, dependent: :destroy
+  has_one :multimedium, as: :multimediable, dependent: :destroy
+  has_one :document, as: :documentable, dependent: :destroy
 
   private
 

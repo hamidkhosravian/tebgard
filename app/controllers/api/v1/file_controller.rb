@@ -13,7 +13,7 @@ module Api
           file = Picture.find_by(id: params[:image])
         end
 
-        file.destroy! if file
+        file&.destroy!
         render status: 204
       end
     end

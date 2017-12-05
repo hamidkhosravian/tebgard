@@ -25,6 +25,9 @@ Style/AndOr:
 Style/ArrayJoin:
   Enabled: true
 
+Style/RegexpLiteral:
+  Enabled: false
+
 Style/AsciiComments:
   Enabled: true
 
