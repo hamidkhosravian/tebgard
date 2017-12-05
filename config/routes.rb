@@ -27,6 +27,10 @@ Rails.application.routes.draw do
       post   "wall/skills" => "wall#add_skills"
       delete "wall/skills" => "wall#remove_skills"
 
+      # follower and following
+      post   "wall/:uid/follow" => "relationship#create"
+      delete "wall/:uid/unfollow" => "relationship#destroy"
+
       # Doctor office
       post     "office"      => "office#create"
       get      "office/:uid" => "office#show"
