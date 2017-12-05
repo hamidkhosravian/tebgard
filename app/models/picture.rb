@@ -2,7 +2,7 @@ class Picture < ApplicationRecord
   belongs_to :imageable, polymorphic: true
 
   has_attached_file :image, styles: { thumbnail: "500x500>", medium: "800x800>", large: "1200x1200>" },
-                            path: ":rails_root/public/:imageable/:imageable_uuid/:style-:hash.:extension",
+                            path: ":rails_root/public/:imageable/:imageable_uuid/:date/pictures/:style-:hash.:extension",
                             hash_secret: Rails.application.secrets.secret_key_base,
                             url: "/:imageable/:imageable_uuid/:style-:hash.:extension"
 
@@ -10,6 +10,10 @@ class Picture < ApplicationRecord
   validates_with AttachmentSizeValidator, attributes: :image, less_than: 5.megabytes
 
   private
+
+  Paperclip.interpolates :date do |file, _style|
+    DateTime.now.to_date.to_s
+  end
 
   Paperclip.interpolates :imageable do |file, _style|
     file.instance.imageable.class.to_s
@@ -20,7 +24,7 @@ class Picture < ApplicationRecord
       uuid = file.instance.imageable.wall.uuid
       uuid.to_s
     else
-      file.instance.imageable.id.to_s
+      file.instance.imageable.uuid.to_s
     end
   end
 end

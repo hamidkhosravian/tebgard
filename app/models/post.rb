@@ -5,6 +5,10 @@ class Post < ApplicationRecord
   validates :body, :presence => true
   before_validation :generate_uuid
 
+  has_one :picture, as: :imageable, :dependent => :destroy
+  has_one :multimedium, as: :multimediable, :dependent => :destroy
+  has_one :document, as: :documentable, :dependent => :destroy
+
   private
 
   def generate_random_hex(n = 1, predicate = proc {})

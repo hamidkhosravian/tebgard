@@ -52,8 +52,11 @@ Rails.application.routes.draw do
       post      "articles"      => "article#create"
       put       "articles/:uid" => "article#update"
       delete    "articles/:uid" => "article#destroy"
+      post      "articles/:uid/upload_file" => "article#upload_file"
       post      "articles/articles_by_tags" => "article#articles_find_by_tag"
 
+      # file
+      delete    "file" => "file#delete_file"
     end
   end
 end

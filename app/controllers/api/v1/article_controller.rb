@@ -48,6 +48,18 @@ module Api
         render status: 204
       end
 
+      def upload_file
+        param! :uid, String, required: true, blank: false
+        article = wall.articles.find_by!(uuid: params[:uid])
+
+        paperclip = PaperclipService.new(article)
+        paperclip.upload_image(params[:image]) if params[:image]
+        paperclip.upload_multimedia(params[:multimedia]) if params[:multimedia]
+        paperclip.upload_document(params[:document]) if params[:document]
+
+        render json: { response: article, status: 200 }, status: 200
+      end
+
       def articles_find_by_tag
         param! :tags, Array, required: true, blank: false
 

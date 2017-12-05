@@ -21,7 +21,11 @@ module Api
 
         post = wall.posts.new
         post.body = params[:body]
-        post.post_tag_list = params[:tags]
+
+        paperclip = PaperclipService.new(post)
+        paperclip.upload_image(params[:image]) if params[:image]
+        paperclip.upload_multimedia(params[:multimedia]) if params[:multimedia]
+        paperclip.upload_document(params[:document]) if params[:document]
         post.save!
 
         render json: { response: post, status: 201 }, status: 201
@@ -32,6 +36,11 @@ module Api
 
         post = wall.posts.find_by!(uuid: params[:uid])
         post.body = params[:body] if params[:body]
+
+        paperclip = PaperclipService.new(post)
+        paperclip.upload_image(params[:image]) if params[:image]
+        paperclip.upload_multimedia(params[:multimedia]) if params[:multimedia]
+        paperclip.upload_document(params[:document]) if params[:document]
         post.post_tag_list = params[:tags] if params[:tags]
         post.save!
 
