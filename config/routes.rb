@@ -21,14 +21,16 @@ Rails.application.routes.draw do
       post   "wall"      => "wall#create"
       get    "wall"      => "wall#show"
       put    "wall"      => "wall#update"
-      get    "wall/:uid" => "wall#show_wall"
+      get    "walls/:uid" => "wall#show_wall"
 
       # Add skill
       post   "wall/skills" => "wall#add_skills"
       delete "wall/skills" => "wall#remove_skills"
 
       # follower and following
-      post   "wall/:uid/follow" => "relationship#create"
+      get    "wall/followers"     => "relationship#followers"
+      get    "wall/following"     => "relationship#following"
+      post   "wall/:uid/follow"   => "relationship#create"
       delete "wall/:uid/unfollow" => "relationship#destroy"
 
       # Doctor office
