@@ -25,7 +25,7 @@ module Api
       def show
         param! :uid, String, required: true, blank: false
 
-        office = Office.find_by(uuid: params[:uid])
+        office = Office.find_by!(uuid: params[:uid])
 
         render json: { response: office, status: 200 }, status: 200
       end
@@ -33,7 +33,7 @@ module Api
       def update
         param! :uid, String, required: true, blank: false
 
-        office = Office.find_by(uuid: params[:uid])
+        office = Office.find_by!(uuid: params[:uid])
         office.latitude = params[:latitude] if params[:latitude]
         office.longitude = params[:longitude] if params[:longitude]
         office.address = params[:address] if params[:address]
@@ -47,7 +47,7 @@ module Api
       def upload_image
         param! :uid, String, required: true, blank: false
 
-        office = Office.find_by(uuid: params[:uid])
+        office = Office.find_by!(uuid: params[:uid])
         picture = Picture.new
         picture.image = params[:image]
         picture.imageable = office
@@ -59,7 +59,7 @@ module Api
       def destroy
         param! :uid, String, required: true, blank: false
 
-        office = Office.find_by(uuid: params[:uid])
+        office = Office.find_by!(uuid: params[:uid])
         office.destroy!
 
         render status: 204

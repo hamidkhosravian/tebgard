@@ -13,6 +13,8 @@ TWITTER_KEY: ""
 TWITTER_SECRET: ""
 
 #google
+# GOOGLE_CLIENT_ID: "748378856620-cevq60r9vrg72o1pq39n8mbsajse9803.apps.googleusercontent.com"
+# GOOGLE_CLIENT_SECRET: "6qGBJmWfHM_x-jOtMeZndVL8"
 GOOGLE_CLIENT_ID: ""
 GOOGLE_CLIENT_SECRET: ""
 
