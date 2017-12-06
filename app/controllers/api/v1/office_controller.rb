@@ -3,6 +3,11 @@ module Api
     class OfficeController < ApiController
       before_action :authenticate_user_from_token!
 
+      def index
+        offices = wall.offices
+        render json: { response: offices, status: 200 }, status: 200
+      end
+
       def create
         param! :latitude, String, required: true, blank: false
         param! :longitude, String, required: true, blank: false
@@ -44,17 +49,18 @@ module Api
         render json: { response: office, status: 200 }, status: 200
       end
 
-      def upload_image
+      def upload_file
         param! :uid, String, required: true, blank: false
 
-        office = Office.find_by!(uuid: params[:uid])
-        picture = Picture.new
-        picture.image = params[:image]
-        picture.imageable = office
-        picture.save!
+        office = wall.offices.find_by!(uuid: params[:uid])
+        paperclip = PaperclipService.new(office)
+        paperclip.upload_image(params[:image]) if params[:image]
+        paperclip.upload_multimedia(params[:multimedia]) if params[:multimedia]
+        paperclip.upload_document(params[:document]) if params[:document]
 
-        render json: { response: office.pictures, status: 201 }, status: 201
+        render json: { response: office, status: 200 }, status: 200
       end
+
 
       def destroy
         param! :uid, String, required: true, blank: false

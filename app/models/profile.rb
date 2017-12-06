@@ -10,6 +10,8 @@ class Profile < ApplicationRecord
   enum gender: %i[male female]
   enum role: %i[visitor seller]
 
+  before_validation :generate_uuid
+
   private
 
   Paperclip.interpolates :name do |file, _style|
@@ -22,5 +24,15 @@ class Profile < ApplicationRecord
 
   Paperclip.interpolates :user_email do |file, _style|
     file.instance.user.username.to_s
+  end
+
+  def generate_random_hex(n = 1, predicate = proc {})
+    hex = SecureRandom.hex(n)
+    hex = SecureRandom.hex(n) while predicate.call(hex)
+    hex
+  end
+
+  def generate_uuid
+    self.uuid = generate_random_hex(12, ->(hex) { Profile.exists?(uuid: hex) }) if new_record?
   end
 end

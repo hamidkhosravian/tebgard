@@ -9,6 +9,8 @@ class Wall < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
+  has_many :comments
+
   validates_uniqueness_of :doctor_code
   acts_as_taggable_on :skills
 
@@ -16,11 +18,11 @@ class Wall < ApplicationRecord
 
    # Follows a user.
    def follow(id)
-     active_relationships.create(followed_id: id)
+     active_relationships.create(followed_id: id) unless self.id == id
    end
    # Unfollows a user.
    def unfollow(id)
-     active_relationships.find_by(followed_id: id).destroy
+     active_relationships.find_by(followed_id: id).destroy unless self.id == id
    end
    # Returns true if the current user is following the other user.
    def following?(wall)
@@ -36,6 +38,6 @@ class Wall < ApplicationRecord
   end
 
   def generate_uuid
-    self.uuid = generate_random_hex(8, ->(hex) { Wall.exists?(uuid: hex) }) if new_record?
+    self.uuid = generate_random_hex(12, ->(hex) { Wall.exists?(uuid: hex) }) if new_record?
   end
 end
