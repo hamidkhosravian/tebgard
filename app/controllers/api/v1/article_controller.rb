@@ -43,7 +43,7 @@ module Api
       def destroy
         param! :uid, String, required: true, blank: false
 
-        article = wall.articles.find_by!(uuid: params[:uid])
+        article = wall.articles.find_by!(uuid: params[:uid]).destroy!
 
         render status: 204
       end
