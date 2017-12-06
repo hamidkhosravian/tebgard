@@ -58,18 +58,21 @@ module Api
 
       def favorite
         param! :uid, String, required: true, blank: false
-        article = wall.articles.find_by!(uuid: params[:uid])
-        article.liked_by current_user.profile
+        param! :uid, String, required: true, blank: false
 
-        render json: {response: "like article.", status: 201 }
+        wall = Wall.find_by!(uuid: params[:uid])
+        wall.liked_by current_user.profile
+
+        render json: {response: "add to favorite list", status: 201 }
       end
 
       def unfavorite
         param! :uid, String, required: true, blank: false
-        article = wall.articles.find_by!(uuid: params[:uid])
-        article.unliked_by current_user.profile
 
-        render json: {response: "unlike article.", status: 204}, status: 204
+        wall = Wall.find_by!(uuid: params[:uid])
+        wall.unliked_by current_user.profile
+
+        render json: {response: "remove from favorite list.", status: 204}, status: 204
       end
 
     end
