@@ -2,7 +2,6 @@ module Api
   module V1
     class ArticleController < ApiController
       before_action :authenticate_user_from_token!
-      load_and_authorize_resource
 
       def index
         articles = wall.articles

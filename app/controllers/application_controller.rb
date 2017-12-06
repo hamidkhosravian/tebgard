@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::API
-  include CanCan::ControllerAdditions
 
   rescue_from JWT::ExpiredSignature, with: :render_jwt_time_out
   rescue_from JWT::DecodeError, with: :render_jwt_error
