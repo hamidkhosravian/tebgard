@@ -71,22 +71,6 @@ module Api
         render json: { response: comment, status: 201 }, status: 201
       end
 
-      def like
-        param! :uid, String, required: true, blank: false
-        post = wall.posts.find_by!(uuid: params[:uid])
-        post.liked_by current_user.profile
-
-        render json: {response: "like post.", status: 201 }
-      end
-
-      def unlike
-        param! :uid, String, required: true, blank: false
-        post = wall.posts.find_by!(uuid: params[:uid])
-        post.unliked_by current_user.profile
-
-        render json: {response: "unlike post.", status: 204}, status: 204
-      end
-
       def posts_find_by_tag
         param! :tags, Array, required: true, blank: false
 

@@ -1,6 +1,5 @@
 class Article < ApplicationRecord
   belongs_to :wall
-  acts_as_votable
   acts_as_taggable_on :article_tags
 
   validates :title, presence: true

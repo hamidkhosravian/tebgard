@@ -55,23 +55,6 @@ module Api
         wall = Wall.find_by!(uuid: params[:uid])
         render json: { response: wall, status: 200 }, status: 200
       end
-
-      def favorite
-        param! :uid, String, required: true, blank: false
-        article = wall.articles.find_by!(uuid: params[:uid])
-        article.liked_by current_user.profile
-
-        render json: {response: "like article.", status: 201 }
-      end
-
-      def unfavorite
-        param! :uid, String, required: true, blank: false
-        article = wall.articles.find_by!(uuid: params[:uid])
-        article.unliked_by current_user.profile
-
-        render json: {response: "unlike article.", status: 204}, status: 204
-      end
-
     end
   end
 end

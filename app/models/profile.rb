@@ -9,8 +9,7 @@ class Profile < ApplicationRecord
   validates_uniqueness_of :username
   enum gender: %i[male female]
   enum role: %i[visitor seller]
-  acts_as_voter
-  
+
   before_validation :generate_uuid
 
   private
