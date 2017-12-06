@@ -12,16 +12,18 @@ Rails.application.routes.draw do
       delete   "logout"      => "authentication#logout"
 
       # profile detail
-      get      "profile"     => "profile#show"
+      get      "profile"      => "profile#show"
       get      "profile/:uid" => "profile#show_profile"
-      put      "profile"     => "profile#update"
+      put      "profile"      => "profile#update"
       post     "profile/upload_avatar" => "profile#upload_avatar"
 
       # Doctor wall
-      post     "wall"      => "wall#create"
-      get      "wall"      => "wall#show"
-      put      "wall"      => "wall#update"
-      get      "walls/:uid" => "wall#show_wall"
+      post        "wall"       => "wall#create"
+      get         "wall"       => "wall#show"
+      put         "wall"       => "wall#update"
+      get         "walls/:uid" => "wall#show_wall"
+      post        "walls/:uid/favorite"   => "wall#favorite"
+      delete      "walls/:uid/unfavorite" => "wall#unfavorite"
 
       # Add skill
       post     "wall/skills" => "wall#add_skills"
@@ -56,6 +58,8 @@ Rails.application.routes.draw do
       get       "posts/:uid/comments" => "post#comments"
       post      "posts/:uid/comments" => "post#add_comment"
       post      "posts/posts_by_tags" => "post#posts_find_by_tag"
+      put       "posts/:uid/like"   => "post#like"
+      delete    "posts/:uid/unlike" => "post#unlike"
 
       # posts
       get       "articles"      => "article#index"
@@ -64,9 +68,11 @@ Rails.application.routes.draw do
       put       "articles/:uid" => "article#update"
       delete    "articles/:uid" => "article#destroy"
       post      "articles/:uid/upload_file" => "article#upload_file"
-      get       "articles/:uid/comments" => "article#comments"
-      post      "articles/:uid/comments" => "article#add_comment"
+      get       "articles/:uid/comments"    => "article#comments"
+      post      "articles/:uid/comments"    => "article#add_comment"
       post      "articles/articles_by_tags" => "article#articles_find_by_tag"
+      put       "articles/:uid/like"   => "article#like"
+      delete    "articles/:uid/unlike" => "article#unlike"
 
       # file
       delete    "file" => "file#delete_file"

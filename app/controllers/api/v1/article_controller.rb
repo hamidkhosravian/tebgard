@@ -76,6 +76,22 @@ module Api
         render json: { response: comment, status: 201 }, status: 201
       end
 
+      def like
+        param! :uid, String, required: true, blank: false
+        article = wall.articles.find_by!(uuid: params[:uid])
+        article.liked_by current_user.profile
+
+        render json: {response: "like article.", status: 201 }
+      end
+
+      def unlike
+        param! :uid, String, required: true, blank: false
+        article = wall.articles.find_by!(uuid: params[:uid])
+        article.unliked_by current_user.profile
+
+        render json: {response: "unlike article.", status: 204}, status: 204
+      end
+
       def articles_find_by_tag
         param! :tags, Array, required: true, blank: false
 

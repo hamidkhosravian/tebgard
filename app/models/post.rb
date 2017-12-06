@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
   belongs_to :wall
+  acts_as_votable
   acts_as_taggable_on :post_tags
 
   validates :body, presence: true

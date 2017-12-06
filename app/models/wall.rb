@@ -13,6 +13,7 @@ class Wall < ApplicationRecord
 
   validates_uniqueness_of :doctor_code
   acts_as_taggable_on :skills
+  acts_as_votable
 
   before_validation :generate_uuid
 
