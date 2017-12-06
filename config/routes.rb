@@ -58,7 +58,7 @@ Rails.application.routes.draw do
       get       "posts/:uid/comments" => "post#comments"
       post      "posts/:uid/comments" => "post#add_comment"
       post      "posts/posts_by_tags" => "post#posts_find_by_tag"
-      post       "posts/:uid/like"   => "post#like"
+      post      "posts/:uid/like"   => "post#like"
       delete    "posts/:uid/unlike" => "post#unlike"
 
       # posts
