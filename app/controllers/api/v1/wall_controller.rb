@@ -56,7 +56,7 @@ module Api
         render json: { response: wall, status: 200 }, status: 200
       end
 
-      def fav
+      def favorite
         param! :uid, String, required: true, blank: false
         article = wall.articles.find_by!(uuid: params[:uid])
         article.liked_by current_user.profile
