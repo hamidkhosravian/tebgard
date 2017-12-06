@@ -29,8 +29,8 @@ module Api
       end
 
       def show_profile
-        param! :id, Integer, required: true, blank: false
-        profile = Profile.find_by!(id: params[:id])
+        param! :uid, String, required: true, blank: false
+        profile = Profile.find_by!(uuid: params[:uid])
         render json: { response: profile, status: 200 }
       end
     end

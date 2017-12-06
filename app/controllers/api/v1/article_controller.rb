@@ -43,7 +43,7 @@ module Api
       def destroy
         param! :uid, String, required: true, blank: false
 
-        article = wall.articles.find_by!(uuid: params[:uid])
+        article = wall.articles.find_by!(uuid: params[:uid]).destroy!
 
         render status: 204
       end
@@ -58,6 +58,22 @@ module Api
         paperclip.upload_document(params[:document]) if params[:document]
 
         render json: { response: article, status: 200 }, status: 200
+      end
+
+      def comments
+        param! :uid, String, required: true, blank: false
+        article = wall.articles.find_by!(uuid: params[:uid])
+        render json: { response: article.comments, status: 200 }, status: 200
+      end
+
+      def add_comment
+        param! :uid, String, required: true, blank: false
+        param! :body, String, required: true, blank: false
+
+        article = wall.articles.find_by!(uuid: params[:uid])
+        comment = article.comments.create!(body: params[:body], wall: wall)
+
+        render json: { response: comment, status: 201 }, status: 201
       end
 
       def articles_find_by_tag

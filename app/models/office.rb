@@ -1,6 +1,8 @@
 class Office < ApplicationRecord
   belongs_to :wall
-  has_many :pictures, as: :imageable
+  has_many :pictures, as: :imageable, dependent: :destroy
+  has_many :multimediums, as: :multimediable, dependent: :destroy
+  has_many :documents, as: :documentable, dependent: :destroy
 
   reverse_geocoded_by :latitude, :longitude # can also be an IP address
   after_validation :geocode
@@ -22,6 +24,6 @@ class Office < ApplicationRecord
   end
 
   def generate_uuid
-    self.uuid = generate_random_hex(12, ->(hex) { Office.exists?(uuid: hex) }) if new_record?
+    self.uuid = generate_random_hex(16, ->(hex) { Office.exists?(uuid: hex) }) if new_record?
   end
 end

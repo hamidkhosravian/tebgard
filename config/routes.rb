@@ -6,43 +6,46 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       # user authentication
-      post "signin"        => "authentication#signin"
-      post "signup"        => "authentication#signup"
-      post "refresh_token" => "authentication#refresh_token"
-      delete "logout"      => "authentication#logout"
+      post     "signin"        => "authentication#signin"
+      post     "signup"        => "authentication#signup"
+      post     "refresh_token" => "authentication#refresh_token"
+      delete   "logout"      => "authentication#logout"
 
       # profile detail
-      get    "profile"     => "profile#show"
-      get    "profile/:id" => "profile#show_profile"
-      put    "profile"     => "profile#update"
-      post   "profile/upload_avatar" => "profile#upload_avatar"
+      get      "profile"     => "profile#show"
+      get      "profile/:uid" => "profile#show_profile"
+      put      "profile"     => "profile#update"
+      post     "profile/upload_avatar" => "profile#upload_avatar"
 
       # Doctor wall
-      post   "wall"      => "wall#create"
-      get    "wall"      => "wall#show"
-      put    "wall"      => "wall#update"
-      get    "walls/:uid" => "wall#show_wall"
+      post     "wall"      => "wall#create"
+      get      "wall"      => "wall#show"
+      put      "wall"      => "wall#update"
+      get      "walls/:uid" => "wall#show_wall"
 
       # Add skill
-      post   "wall/skills" => "wall#add_skills"
-      delete "wall/skills" => "wall#remove_skills"
+      post     "wall/skills" => "wall#add_skills"
+      delete   "wall/skills" => "wall#remove_skills"
 
       # follower and following
-      get    "wall/followers"     => "relationship#followers"
-      get    "wall/following"     => "relationship#following"
-      post   "wall/:uid/follow"   => "relationship#create"
-      delete "wall/:uid/unfollow" => "relationship#destroy"
+      get      "wall/followers"     => "relationship#followers"
+      get      "wall/following"     => "relationship#following"
+      post     "wall/:uid/follow"   => "relationship#create"
+      delete   "wall/:uid/unfollow" => "relationship#destroy"
 
       # Doctor office
-      post     "office"      => "office#create"
-      get      "office/:uid" => "office#show"
-      put      "office/:uid" => "office#update"
-      delete   "office/:uid" => "office#destroy"
-      post     "office/:uid/upload_image" => "office#upload_image"
+      post     "offices"      => "office#create"
+      get      "offices"      => "office#index"
+      get      "offices/:uid" => "office#show"
+      put      "offices/:uid" => "office#update"
+      delete   "offices/:uid" => "office#destroy"
+      post     "offices/:uid/upload_file" => "office#upload_file"
+
+      # add jobs like tag in doctor office
 
       # find nearest
-      post   "nearest/offices" => "find_nearest#office"
-      post   "nearest/offices_by_tags" => "find_nearest#offices_by_tags"
+      post     "nearest/offices" => "find_nearest#office"
+      post     "nearest/offices_by_skills" => "find_nearest#offices_by_skills"
 
       # posts
       get       "posts"      => "post#index"
@@ -50,6 +53,8 @@ Rails.application.routes.draw do
       post      "posts"      => "post#create"
       put       "posts/:uid" => "post#update"
       delete    "posts/:uid" => "post#destroy"
+      get       "posts/:uid/comments" => "post#comments"
+      post      "posts/:uid/comments" => "post#add_comment"
       post      "posts/posts_by_tags" => "post#posts_find_by_tag"
 
       # posts
@@ -59,10 +64,15 @@ Rails.application.routes.draw do
       put       "articles/:uid" => "article#update"
       delete    "articles/:uid" => "article#destroy"
       post      "articles/:uid/upload_file" => "article#upload_file"
+      get       "articles/:uid/comments" => "article#comments"
+      post      "articles/:uid/comments" => "article#add_comment"
       post      "articles/articles_by_tags" => "article#articles_find_by_tag"
 
       # file
       delete    "file" => "file#delete_file"
+
+      # comment
+      delete    "comments/:uid" => "comment#destroy"
     end
   end
 end

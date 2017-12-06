@@ -20,6 +20,7 @@ module Api
 
         post = wall.posts.new
         post.body = params[:body]
+        post.post_tag_list = params[:tags]
 
         paperclip = PaperclipService.new(post)
         paperclip.upload_image(params[:image]) if params[:image]
@@ -35,6 +36,7 @@ module Api
 
         post = wall.posts.find_by!(uuid: params[:uid])
         post.body = params[:body] if params[:body]
+        post.post_tag_list = params[:tags] if params[:tags]
 
         paperclip = PaperclipService.new(post)
         paperclip.upload_image(params[:image]) if params[:image]
@@ -48,9 +50,25 @@ module Api
 
       def destroy
         param! :uid, String, required: true, blank: false
-        post = wall.posts.find_by!(uuid: params[:uid])
+        post = wall.posts.find_by!(uuid: params[:uid]).destroy!
 
         render status: 204
+      end
+
+      def comments
+        param! :uid, String, required: true, blank: false
+        post = wall.posts.find_by!(uuid: params[:uid])
+        render json: { response: post.comments, status: 200 }, status: 200
+      end
+
+      def add_comment
+        param! :uid, String, required: true, blank: false
+        param! :body, String, required: true, blank: false
+
+        post = wall.posts.find_by!(uuid: params[:uid])
+        comment = post.comments.create!(body: params[:body], wall: wall)
+
+        render json: { response: comment, status: 201 }, status: 201
       end
 
       def posts_find_by_tag
