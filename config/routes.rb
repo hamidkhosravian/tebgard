@@ -42,6 +42,7 @@ Rails.application.routes.draw do
       put      "offices/:uid" => "office#update"
       delete   "offices/:uid" => "office#destroy"
       post     "offices/:uid/upload_file" => "office#upload_file"
+      get      "walls/:uid/offices" => "office#wall_offices"
 
       # add jobs like tag in doctor office
 
@@ -55,6 +56,7 @@ Rails.application.routes.draw do
       post     "posts"      => "post#create"
       put      "posts/:uid" => "post#update"
       delete   "posts/:uid" => "post#destroy"
+      get      "walls/:uid/posts" => "post#wall_posts"
       get      "posts/:uid/comments" => "post#comments"
       post     "posts/:uid/comments" => "post#add_comment"
       post     "posts/posts_by_tags" => "post#posts_find_by_tag"
@@ -67,6 +69,7 @@ Rails.application.routes.draw do
       post     "articles"      => "article#create"
       put      "articles/:uid" => "article#update"
       delete   "articles/:uid" => "article#destroy"
+      get      "walls/:uid/articles" => "article#wall_articles"
       post     "articles/:uid/upload_file" => "article#upload_file"
       get      "articles/:uid/comments"    => "article#comments"
       post     "articles/:uid/comments"    => "article#add_comment"

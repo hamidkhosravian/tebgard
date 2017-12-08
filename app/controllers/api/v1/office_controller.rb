@@ -5,7 +5,9 @@ module Api
       before_action :set_office, except: [:index, :create]
 
       def index
-        offices = wall.offices
+        param! :page, Integer, default: 1
+        param! :limit, Integer, default: 10
+        offices = wall.offices.order("created_at DESC").page(params[:page]).per(params[:limit])
         authorize offices
         render json: { response: offices, status: 200 }, status: 200
       end
@@ -62,9 +64,11 @@ module Api
 
       def wall_offices
         param! :uid, String, required: true, blank: false
+        param! :page, Integer, default: 1
+        param! :limit, Integer, default: 10
 
         wall = Wall.find_by(uuid: params[:uid])
-        offices = wall.offices
+        offices = wall.offices.order("created_at DESC").page(params[:page]).per(params[:limit])
         authorize offices
 
         render json: { response: offices, status: 200 }, status: 200

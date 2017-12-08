@@ -5,7 +5,9 @@ module Api
       before_action :set_post, except: [:index, :create, :posts_find_by_tag]
 
       def index
-        posts = wall.posts
+        param! :page, Integer, default: 1
+        param! :limit, Integer, default: 10
+        posts = wall.posts.order("created_at DESC").page(params[:page]).per(params[:limit])
         authorize posts
 
         render json: { response: posts, status: 200 }, status: 200
@@ -53,7 +55,11 @@ module Api
       end
 
       def comments
-        render json: { response: @post.comments, status: 200 }, status: 200
+        param! :page, Integer, default: 1
+        param! :limit, Integer, default: 10
+        comments = @post.comments.order("created_at DESC").page(params[:page]).per(params[:limit])
+
+        render json: { response: comments, status: 200 }, status: 200
       end
 
       def add_comment
@@ -74,9 +80,11 @@ module Api
 
       def wall_posts
         param! :uid, String, required: true, blank: false
+        param! :page, Integer, default: 1
+        param! :limit, Integer, default: 10
 
         wall = Wall.find_by(uuid: params[:uid])
-        posts = wall.posts
+        posts = wall.posts.order("created_at DESC").page(params[:page]).per(params[:limit])
         authorize posts
 
         render json: { response: posts, status: 200 }, status: 200
@@ -84,8 +92,10 @@ module Api
 
       def posts_find_by_tag
         param! :tags, Array, required: true, blank: false
+        param! :page, Integer, default: 1
+        param! :limit, Integer, default: 10
 
-        posts = Post.tagged_with(params[:tags], any: true).order("created_at DESC")
+        posts = Post.tagged_with(params[:tags], any: true).order("created_at DESC").page(params[:page]).per(params[:limit])
         authorize posts
 
         render json: { response: posts, status: 200 }, status: 200

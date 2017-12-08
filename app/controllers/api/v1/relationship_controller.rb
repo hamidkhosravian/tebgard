@@ -4,12 +4,16 @@ module Api
       before_action :authenticate_user_from_token!
 
       def followers
-        followers = wall.followers
+        param! :page, Integer, default: 1
+        param! :limit, Integer, default: 10
+        followers = wall.followers.order("created_at DESC").page(params[:page]).per(params[:limit])
         render json: {response: followers, status: 200}, status: 200
       end
 
       def following
-        following = wall.following
+        param! :page, Integer, default: 1
+        param! :limit, Integer, default: 10
+        following = wall.following.order("created_at DESC").page(params[:page]).per(params[:limit])
         render json: {response: following, status: 200}, status: 200
       end
 
