@@ -1,26 +1,30 @@
-class ArticlePolicy < ApplicationPolicy
+class OfficePolicy < ApplicationPolicy
   def index?
-    true if profile.doctor?
+    true if profile.doctor? && active
   end
 
   def show?
-    true if profile.doctor?
+    true
   end
 
   def create?
-    true if profile.doctor?
+    true if profile.doctor? && active
   end
 
   def update?
-    true if profile.doctor? && profile.wall == office.wall
+    true if profile.doctor? && active && wall == office.wall
   end
 
   def destroy?
-    true if profile.doctor? && profile.wall == office.wall
+    true if profile.doctor? && active && wall == office.wall
   end
 
   def upload_file?
-    true if profile.doctor? && profile.wall == office.wall
+    true if profile.doctor? && active && wall == office.wall
+  end
+
+  def wall_offices?
+    true
   end
 
   private

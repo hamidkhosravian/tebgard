@@ -72,6 +72,16 @@ module Api
         render json: {response: "unlike post.", status: 204}, status: 204
       end
 
+      def wall_posts
+        param! :uid, String, required: true, blank: false
+
+        wall = Wall.find_by(uuid: params[:uid])
+        posts = wall.posts
+        authorize posts
+
+        render json: { response: posts, status: 200 }, status: 200
+      end
+
       def posts_find_by_tag
         param! :tags, Array, required: true, blank: false
 

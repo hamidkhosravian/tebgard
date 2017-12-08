@@ -2,6 +2,7 @@ module Api
   module V1
     class WallController < ApiController
       before_action :authenticate_user_from_token!
+      before_action :set_article, except: [:create, :show, :update, :add_skills, :remove_skills]
 
       def create
         param! :doctor_code, String, required: true, blank: false
@@ -11,14 +12,14 @@ module Api
       end
 
       def show
-        wall = current_user.profile.wall
+        authorize wall
         render json: { response: wall, status: 200 }, status: 200
       end
 
       def update
-        wall = current_user.profile.wall
+        authorize wall
         wall.description = params[:description] if params[:description]
-        if params[:doctor_code] && !wall.doctor_code == params[:doctor_code]
+        if params[:doctor_code] && wall.doctor_code != params[:doctor_code]
           wall.doctor_code = params[:doctor_code]
           wall.active = false
           current_user.profile.role = "visitor"
@@ -32,6 +33,7 @@ module Api
       def add_skills
         param! :skills, Array, required: true, blank: false
 
+        authorize wall
         wall = current_user.profile.wall
         wall.skill_list << params[:skills]
 
@@ -42,6 +44,7 @@ module Api
       def remove_skills
         param! :skills, Array, required: true, blank: false
 
+        authorize wall
         wall = current_user.profile.wall
         wall.skill_list -= params[:skills]
 
@@ -50,31 +53,26 @@ module Api
       end
 
       def show_wall
-        param! :uid, String, required: true, blank: false
-
-        wall = Wall.find_by!(uuid: params[:uid])
-        render json: { response: wall, status: 200 }, status: 200
+        render json: { response: @wall_with_uuid, status: 200 }, status: 200
       end
 
       def favorite
-        param! :uid, String, required: true, blank: false
-        param! :uid, String, required: true, blank: false
-
-        wall = Wall.find_by!(uuid: params[:uid])
-        wall.liked_by current_user.profile
+        @wall_with_uuid.liked_by current_user.profile
 
         render json: {response: "add to favorite list", status: 201 }
       end
 
       def unfavorite
-        param! :uid, String, required: true, blank: false
-
-        wall = Wall.find_by!(uuid: params[:uid])
-        wall.unliked_by current_user.profile
+        @wall_with_uuid.unliked_by current_user.profile
 
         render json: {response: "remove from favorite list.", status: 204}, status: 204
       end
 
+      private
+        def set_wall
+          param! :uid, String, required: true, blank: false
+          @wall_with_uuid = Wall.find_by!(uuid: params[:uid])
+        end
     end
   end
 end

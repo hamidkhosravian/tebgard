@@ -1,6 +1,6 @@
-class PostPolicy < ApplicationPolicy
+class CommentPolicy < ApplicationPolicy
   def destroy?
-    true if profile.doctor? && profile.wall == comment.wall
+    true if profile.doctor? && active && wall == comment.wall
   end
 
   private

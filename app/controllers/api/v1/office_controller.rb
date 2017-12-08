@@ -60,6 +60,16 @@ module Api
         render status: 204
       end
 
+      def wall_offices
+        param! :uid, String, required: true, blank: false
+
+        wall = Wall.find_by(uuid: params[:uid])
+        offices = wall.offices
+        authorize offices
+
+        render json: { response: offices, status: 200 }, status: 200
+      end
+
       private
         def set_office
           param! :uid, String, required: true, blank: false

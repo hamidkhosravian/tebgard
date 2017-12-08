@@ -1,6 +1,6 @@
-class PostPolicy < ApplicationPolicy
+class FilePolicy < ApplicationPolicy
   def destroy?
-    true if profile.doctor? && check_file
+    true if check_file
   end
 
   private
