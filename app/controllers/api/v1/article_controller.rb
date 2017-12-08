@@ -5,7 +5,10 @@ module Api
       before_action :set_article, except: [:index, :create, :articles_find_by_tag]
 
       def index
-        articles = wall.articles
+        param! :page, Integer, default: 1
+        param! :limit, Integer, default: 10
+
+        articles = wall.articles.order("created_at DESC").page(params[:page]).per(params[:limit])
         authorize articles
         render json: { response: articles, status: 200 }, status: 200
       end
@@ -53,7 +56,12 @@ module Api
       end
 
       def comments
-        render json: { response: @article.comments, status: 200 }, status: 200
+        param! :page, Integer, default: 1
+        param! :limit, Integer, default: 10
+
+        comments = @articles.comments.order("created_at DESC").page(params[:page]).per(params[:limit])
+
+        render json: { response: comments, status: 200 }, status: 200
       end
 
       def add_comment
@@ -75,9 +83,11 @@ module Api
 
       def wall_articles
         param! :uid, String, required: true, blank: false
+        param! :page, Integer, default: 1
+        param! :limit, Integer, default: 10
 
         wall = Wall.find_by(uuid: params[:uid])
-        articles = wall.articles
+        articles = wall.articles.order("created_at DESC").page(params[:page]).per(params[:limit])
         authorize articles
 
         render json: { response: articles, status: 200 }, status: 200
@@ -85,8 +95,10 @@ module Api
 
       def articles_find_by_tag
         param! :tags, Array, required: true, blank: false
+        param! :page, Integer, default: 1
+        param! :limit, Integer, default: 10
 
-        articles = Article.tagged_with(params[:tags], any: true).order("created_at DESC")
+        articles = Article.tagged_with(params[:tags], any: true).order("created_at DESC").page(params[:page]).per(params[:limit])
         authorize articles
 
         render json: { response: articles, status: 200 }, status: 200
