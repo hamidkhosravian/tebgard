@@ -26,8 +26,8 @@ gem "bcrypt", "~> 3.1.7"
 gem "rack-cors"
 
 # authentication and authorization
-gem "cancancan"
 gem "devise"
+gem "pundit"
 gem "jwt"
 gem "omniauth-facebook"
 gem "omniauth-google-oauth2"

@@ -18,12 +18,12 @@ Rails.application.routes.draw do
       post     "profile/upload_avatar" => "profile#upload_avatar"
 
       # Doctor wall
-      post        "wall"       => "wall#create"
-      get         "wall"       => "wall#show"
-      put         "wall"       => "wall#update"
-      get         "walls/:uid" => "wall#show_wall"
-      post        "walls/:uid/favorite"   => "wall#favorite"
-      delete      "walls/:uid/unfavorite" => "wall#unfavorite"
+      post     "wall"       => "wall#create"
+      get      "wall"       => "wall#show"
+      put      "wall"       => "wall#update"
+      get      "walls/:uid" => "wall#show_wall"
+      post     "walls/:uid/favorite"   => "wall#favorite"
+      delete   "walls/:uid/unfavorite" => "wall#unfavorite"
 
       # Add skill
       post     "wall/skills" => "wall#add_skills"
@@ -50,35 +50,35 @@ Rails.application.routes.draw do
       post     "nearest/offices_by_skills" => "find_nearest#offices_by_skills"
 
       # posts
-      get       "posts"      => "post#index"
-      get       "posts/:uid" => "post#show"
-      post      "posts"      => "post#create"
-      put       "posts/:uid" => "post#update"
-      delete    "posts/:uid" => "post#destroy"
-      get       "posts/:uid/comments" => "post#comments"
-      post      "posts/:uid/comments" => "post#add_comment"
-      post      "posts/posts_by_tags" => "post#posts_find_by_tag"
-      post       "posts/:uid/like"   => "post#like"
-      delete    "posts/:uid/unlike" => "post#unlike"
+      get      "posts"      => "post#index"
+      get      "posts/:uid" => "post#show"
+      post     "posts"      => "post#create"
+      put      "posts/:uid" => "post#update"
+      delete   "posts/:uid" => "post#destroy"
+      get      "posts/:uid/comments" => "post#comments"
+      post     "posts/:uid/comments" => "post#add_comment"
+      post     "posts/posts_by_tags" => "post#posts_find_by_tag"
+      post     "posts/:uid/like"   => "post#like"
+      delete   "posts/:uid/unlike" => "post#unlike"
 
       # posts
-      get       "articles"      => "article#index"
-      get       "articles/:uid" => "article#show"
-      post      "articles"      => "article#create"
-      put       "articles/:uid" => "article#update"
-      delete    "articles/:uid" => "article#destroy"
-      post      "articles/:uid/upload_file" => "article#upload_file"
-      get       "articles/:uid/comments"    => "article#comments"
-      post      "articles/:uid/comments"    => "article#add_comment"
-      post      "articles/articles_by_tags" => "article#articles_find_by_tag"
-      post       "articles/:uid/like"   => "article#like"
-      delete    "articles/:uid/unlike" => "article#unlike"
+      get      "articles"      => "article#index"
+      get      "articles/:uid" => "article#show"
+      post     "articles"      => "article#create"
+      put      "articles/:uid" => "article#update"
+      delete   "articles/:uid" => "article#destroy"
+      post     "articles/:uid/upload_file" => "article#upload_file"
+      get      "articles/:uid/comments"    => "article#comments"
+      post     "articles/:uid/comments"    => "article#add_comment"
+      post     "articles/articles_by_tags" => "article#articles_find_by_tag"
+      post     "articles/:uid/like"   => "article#like"
+      delete   "articles/:uid/unlike" => "article#unlike"
 
       # file
-      delete    "file" => "file#delete_file"
+      delete   "file" => "file#delete_file"
 
       # comment
-      delete    "comments/:uid" => "comment#destroy"
+      delete   "comments/:uid" => "comment#destroy"
     end
   end
 end
