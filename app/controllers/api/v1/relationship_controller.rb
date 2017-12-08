@@ -19,9 +19,7 @@ module Api
 
       def create
         dr_wall = Wall.find_by(uuid: params[:uid])
-        unless wall.uuid.eql?(params[:uid].to_i)
-          wall.follow(dr_wall.id)
-        end
+        wall.follow(dr_wall.id) unless wall.uuid.eql?(params[:uid].to_i)
         render json: {response: "user followed", status: 200}, status: 200
       end
 
