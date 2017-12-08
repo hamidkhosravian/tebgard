@@ -1,4 +1,4 @@
-class ArticlePolicy < ApplicationPolicy
+class PostPolicy < ApplicationPolicy
   def index?
     true if profile.doctor?
   end
@@ -12,17 +12,13 @@ class ArticlePolicy < ApplicationPolicy
   end
 
   def update?
-    true if profile.doctor? && profile.wall == article.wall
+    true if profile.doctor? && profile.wall == post.wall
   end
 
   def destroy?
-    true if profile.doctor? && profile.wall == article.wall
+    true if profile.doctor? && profile.wall == post.wall
   end
-
-  def upload_file?
-    true if profile.doctor? && profile.wall == article.wall
-  end
-
+  
   def comments?
     true if profile.doctor?
   end
@@ -39,12 +35,12 @@ class ArticlePolicy < ApplicationPolicy
     true if profile.doctor?
   end
 
-  def articles_find_by_tag?
+  def posts_find_by_tag?
     true if profile.doctor?
   end
 
   private
-    def article
+    def post
       record
     end
 end
