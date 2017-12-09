@@ -1,5 +1,6 @@
 class Office < ApplicationRecord
   belongs_to :wall
+  has_many :open_days
   has_many :pictures, as: :imageable, dependent: :destroy
   has_many :multimediums, as: :multimediable, dependent: :destroy
   has_many :documents, as: :documentable, dependent: :destroy
