@@ -17,7 +17,6 @@ module Api
           param! :close_time, String, required: true, blank: false
         end
 
-        binding.pry
         hours = []
         params[:hours].each do |h|
           hours << {open_time: h[:open_time], close_time: h[:close_time]}
@@ -31,9 +30,24 @@ module Api
       end
 
       def update
+        param! :id, Integer, required: true, blank: false
+        param! :day, Integer, required: true, blank: false
+
+        working_hour = @office.open_days.find(id: params[:day_id]).open_hours.find(id: params[:id])
+        authorize working_hour
+        working_hour.start_time = params[:start_time] if params[:start_time]
+        working_hour.close_time = params[:close_time] if params[:close_time]
+        working_hour.save!
+
+        render json: {response: working_hour, status: 200}, status: 200
       end
 
       def destroy
+        param! :id, Integer, required: true, blank: false
+        working_hour = @office.open_days.find(id: params[:id])
+        authorize working_hour
+        working_hour.destroy!
+        render status: 204
       end
 
       private
