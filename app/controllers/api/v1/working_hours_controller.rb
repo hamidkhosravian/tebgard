@@ -5,9 +5,9 @@ module Api
       before_action :set_office
 
       def index
-        working_hours = @office.open_days
-        authorize working_hours
-        render json: {response: @working_hours, status: 200}, status: 200
+        working_days = @office.open_days
+        authorize working_days
+        render json: {response: working_days, status: 200}, status: 200
       end
 
       def create
@@ -22,11 +22,11 @@ module Api
           hours << {open_time: h[:open_time], close_time: h[:close_time]}
         end
 
-        working_hour = @office.open_days.new(day: params[:day], open_hours_attributes: hours)
-        authorize working_hour
-        working_hour.save!
+        working_hours = @office.open_days.new(day: params[:day], open_hours_attributes: hours)
+        authorize working_hours
+        working_hours.save!
 
-        render json: {response: working_hour, status: 200}, status: 200
+        render json: {response: working_hours, status: 200}, status: 200
       end
 
       def update
@@ -42,9 +42,19 @@ module Api
         render json: {response: working_hour, status: 200}, status: 200
       end
 
-      def destroy
+      def destroy_day
         param! :id, Integer, required: true, blank: false
-        working_hour = @office.open_days.find(id: params[:id])
+        working_day = @office.open_days.find(id: params[:id])
+        authorize working_day
+        working_day.destroy!
+        render status: 204
+      end
+
+      def destroy_hour
+        param! :id, Integer, required: true, blank: false
+        param! :day, Integer, required: true, blank: false
+
+        working_hour = @office.open_days.find(id: params[:day_id]).open_hours.find(id: params[:id])
         authorize working_hour
         working_hour.destroy!
         render status: 204
