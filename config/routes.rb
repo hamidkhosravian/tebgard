@@ -45,6 +45,9 @@ Rails.application.routes.draw do
       get      "walls/:uid/offices" => "office#wall_offices"
       get      "offices/:uid/working_hours" => "working_hours#index"
       post     "offices/:uid/working_hours" => "working_hours#create"
+      put      "offices/:uid/days/:day/hours/:id" => "working_hours#update"
+      delete   "offices/:uid/days/:day" => "working_hours#destroy_day"
+      delete   "offices/:uid/days/:day/hours/:id" => "working_hours#destroy_hour"
 
       # add jobs like tag in doctor office
 

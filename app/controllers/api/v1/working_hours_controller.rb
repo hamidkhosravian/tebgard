@@ -12,30 +12,30 @@ module Api
 
       def create
         param! :day, String, required: true, blank: false
-        b.param! :hours, Hash, required: true do |a|
-          param! :start_time, String, required: true, blank: false
-          param! :close_time, String, required: true, blank: false
+        param! :hours, Array, required: true do |a|
+          a.param! :open_time, String, required: true, blank: false
+          a.param! :close_time, String, required: true, blank: false
         end
 
         hours = []
-        params[:hours].each do |h|
-          hours << {open_time: h[:open_time], close_time: h[:close_time]}
+        params[:hours].each do |hour|
+          hours << {open_time: hour["open_time"], close_time: hour["close_time"]}
         end
 
-        working_hours = @office.open_days.new(day: params[:day], open_hours_attributes: hours)
-        authorize working_hours
-        working_hours.save!
+        working_days = @office.open_days.new(day: params[:day], open_hours_attributes: hours)
+        authorize working_days
+        working_days.save!
 
-        render json: {response: working_hours, status: 200}, status: 200
+        render json: {response: working_days, status: 200}, status: 200
       end
 
       def update
         param! :id, Integer, required: true, blank: false
-        param! :day, Integer, required: true, blank: false
+        param! :day, String, required: true, blank: false
 
-        working_hour = @office.open_days.find(id: params[:day_id]).open_hours.find(id: params[:id])
+        working_hour = @office.open_days.find_by(day: params[:day]).open_hours.find_by(id: params[:id])
         authorize working_hour
-        working_hour.start_time = params[:start_time] if params[:start_time]
+        working_hour.open_time  = params[:open_time]  if params[:open_time]
         working_hour.close_time = params[:close_time] if params[:close_time]
         working_hour.save!
 
@@ -43,21 +43,21 @@ module Api
       end
 
       def destroy_day
-        param! :id, Integer, required: true, blank: false
-        working_day = @office.open_days.find(id: params[:id])
+        param! :day, String, required: true, blank: false
+        working_day = @office.open_days.find_by(day: params[:day])
         authorize working_day
         working_day.destroy!
-        render status: 204
+        render json: {}, status: 204
       end
 
       def destroy_hour
         param! :id, Integer, required: true, blank: false
-        param! :day, Integer, required: true, blank: false
+        param! :day, String, required: true, blank: false
 
-        working_hour = @office.open_days.find(id: params[:day_id]).open_hours.find(id: params[:id])
+        working_hour = @office.open_days.find_by(day: params[:day]).open_hours.find_by(id: params[:id])
         authorize working_hour
         working_hour.destroy!
-        render status: 204
+        render json: {}, status: 204
       end
 
       private

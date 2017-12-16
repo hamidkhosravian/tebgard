@@ -7,6 +7,7 @@ class ApplicationController < ActionController::API
   rescue_from RailsParam::Param::InvalidParameterError, with: :render_params_invalid
   rescue_from AuthError, with: :render_jwt_auth_error
   rescue_from BadRequestError, with: :render_bad_request_error
+  rescue_from PG::InvalidTextRepresentation, with: :render_bad_request_error
   rescue_from ObjectError, with: :bad_object_error
   rescue_from ActiveRecord::RecordNotFound, with: :bad_object_error
   rescue_from ArgumentError, with: :render_bad_request_error
