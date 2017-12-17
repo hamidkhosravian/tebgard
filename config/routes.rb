@@ -43,6 +43,8 @@ Rails.application.routes.draw do
       delete   "offices/:uid" => "office#destroy"
       post     "offices/:uid/upload_file" => "office#upload_file"
       get      "walls/:uid/offices" => "office#wall_offices"
+
+      # office working hours
       get      "offices/:uid/working_hours" => "working_hours#index"
       get      "offices/:uid/working_hours/filter" => "working_hours#show"
       post     "offices/:uid/working_hours" => "working_hours#create"

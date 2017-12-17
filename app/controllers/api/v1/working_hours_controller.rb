@@ -21,7 +21,7 @@ module Api
         wh = working_days.map do |day|
           Hash[day.day.to_sym, day.open_hours.map{|h| Hash[h.open_time.strftime("%T"), h.close_time.strftime("%T")]}.inject(:merge)]
         end
-        WorkingHours::Config.working_hours =  merged = wh.inject({}) { |aggregate, hash| aggregate.merge hash }
+        WorkingHours::Config.working_hours =  merged = wh.reduce({}) { |aggregate, hash| aggregate.merge hash }
 
         wd = []
         while params[:start_date] <= params[:end_date]
