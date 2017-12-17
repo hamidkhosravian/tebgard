@@ -3,6 +3,10 @@ class OpenDayPolicy < ApplicationPolicy
     true
   end
 
+  def show?
+    true
+  end
+
   def create?
     true if profile.doctor? && active && @wall == open_day.office.wall
   end

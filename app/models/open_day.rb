@@ -4,5 +4,5 @@ class OpenDay < ApplicationRecord
   accepts_nested_attributes_for :open_hours
 
   validates_uniqueness_of :day, scope: :office
-  enum day: %i[saturday sunday monday tuesday wednesday thursday friday]
+  enum day: %i[sat sun mon tue wed thu fri]
 end

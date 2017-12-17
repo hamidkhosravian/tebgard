@@ -10,6 +10,28 @@ module Api
         render json: {response: working_days, status: 200}, status: 200
       end
 
+      def show
+        param! :start_date, Date, required: true, blank: false
+        param! :end_date, Date, required: true, blank: false
+        raise BadRequestError, I18n.t("messages.date.date_distance") if params[:start_date] - params[:end_date] > 31
+
+        working_days = @office.open_days
+        authorize working_days
+
+        wh = working_days.map do |day|
+          Hash[day.day.to_sym, day.open_hours.map{|h| Hash[h.open_time.strftime("%T"), h.close_time.strftime("%T")]}.inject(:merge)]
+        end
+        WorkingHours::Config.working_hours =  merged = wh.inject({}) { |aggregate, hash| aggregate.merge hash }
+
+        wd = []
+        while params[:start_date] <= params[:end_date]
+          params[:start_date] = WorkingHours::Duration.new(1, :days).since(params[:start_date])
+          wd << params[:start_date]
+        end
+
+        render json: {response: wd, status: 200}, status: 200
+      end
+
       def create
         param! :day, String, required: true, blank: false
         param! :hours, Array, required: true do |a|
