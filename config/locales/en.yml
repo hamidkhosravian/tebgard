@@ -77,3 +77,5 @@ en:
 
     date:
       date_distance: "distance between from_date and end_date cannot be bigger than 31 days."
+      not_day_working: "your require date is not working day."
+      date_distance: "your require hours is not working hours."

@@ -17,6 +17,13 @@ class Office < ApplicationRecord
 
   before_validation :generate_uuid
 
+  def working_hours
+    wh = open_days.map do |day|
+      Hash[day.day.to_sym, day.open_hours.map{|h| Hash[h.open_time.strftime("%T"), h.close_time.strftime("%T")]}.inject(:merge)]
+    end
+    WorkingHours::Config.working_hours =  merged = wh.reduce({}) { |aggregate, hash| aggregate.merge hash }
+  end
+
   private
 
   def generate_random_hex(n = 1, predicate = proc {})
