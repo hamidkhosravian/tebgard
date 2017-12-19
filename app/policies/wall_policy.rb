@@ -8,15 +8,15 @@ class WallPolicy < ApplicationPolicy
   end
 
   def update?
-    true if wall && wall == current_wall
+    true if wall && @wall == current_wall
   end
 
   def add_skills?
-    true if wall && wall == current_wall
+    true if wall && @wall == current_wall
   end
 
   def remove_skills?
-    true if wall && wall == current_wall
+    true if wall && @wall == current_wall
   end
 
 

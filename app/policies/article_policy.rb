@@ -12,15 +12,15 @@ class ArticlePolicy < ApplicationPolicy
   end
 
   def update?
-    true if profile.doctor? && active && wall == article.wall
+    true if profile.doctor? && active && @wall == article.wall
   end
 
   def destroy?
-    true if profile.doctor? && active && wall == article.wall
+    true if profile.doctor? && active && @wall == article.wall
   end
 
   def upload_file?
-    true if profile.doctor? && active && wall == article.wall
+    true if profile.doctor? && active && @wall == article.wall
   end
 
   def comments?

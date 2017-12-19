@@ -1,7 +1,7 @@
 class Office < ApplicationRecord
   belongs_to :wall
   has_many :open_days
-  has_many :activation, as: :activable, dependent: :destroy
+  has_many :availables, as: :availability, dependent: :destroy
   has_many :pictures, as: :imageable, dependent: :destroy
   has_many :multimediums, as: :multimediable, dependent: :destroy
   has_many :documents, as: :documentable, dependent: :destroy
@@ -22,6 +22,7 @@ class Office < ApplicationRecord
       Hash[day.day.to_sym, day.open_hours.map{|h| Hash[h.open_time.strftime("%T"), h.close_time.strftime("%T")]}.inject(:merge)]
     end
     WorkingHours::Config.working_hours =  merged = wh.reduce({}) { |aggregate, hash| aggregate.merge hash }
+    WorkingHours::Config.time_zone = 'Tehran'
   end
 
   private

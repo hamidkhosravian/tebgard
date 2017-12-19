@@ -52,6 +52,12 @@ Rails.application.routes.draw do
       delete   "offices/:uid/days/:day" => "working_hours#destroy_day"
       delete   "offices/:uid/days/:day/hours/:id" => "working_hours#destroy_hour"
 
+      # office active or deactive special date
+      get      "offices/:uid/availables" => "available#office_available_index"
+      post     "offices/:uid/availables" => "available#office_available"
+      put      "offices/:uid/availables/:id" => "available#office_update"
+      delete   "offices/:uid/availables/:id" => "available#destroy"
+
       # add jobs like tag in doctor office
 
       # find nearest
