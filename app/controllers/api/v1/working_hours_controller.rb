@@ -21,12 +21,17 @@ module Api
         @office.working_hours
 
         wd = []
+
+        @office.availables.where(status: true).each do |activate|
+          wd << activate.date if (params[:start_date]..params[:end_date]).cover?(activate.date) && !wd.include?(activate.date)
+        end
+
         while params[:start_date] <= params[:end_date]
           params[:start_date] = WorkingHours::Duration.new(1, :days).since(params[:start_date])
           wd << params[:start_date]
         end
 
-        render json: {response: wd, status: 200}, status: 200
+        render json: {response: wd.sort, status: 200}, status: 200
       end
 
       def create
