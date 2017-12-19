@@ -7,8 +7,8 @@ module Api
       def office_activation
         param! :id, Integer, required: true, blank: false
 
-        activable = @office.activations.find_by!(id: params[:id])
-        activable.destroy
+        activation = @office.activations.find_by!(id: params[:id])
+        activation.destroy
 
         render status 204
       end
@@ -32,6 +32,28 @@ module Api
         activable.save!
 
         render json: { response: activable, status: 200 }, status: 200
+      end
+
+      def update
+        param! :id, Integer, required: true, blank: false
+        param! :date, Date, required: false, blank: false
+        param! :start_time, Time, required: false, blank: false
+        param! :end_time, Time, required: false, blank: false
+        param! :description, String, required: false, blank: false
+
+        @office.working_hours
+
+        raise BadRequestError, I18n.t("messages.date.not_day_working") unless params[:date].working_day?
+        raise BadRequestError, I18n.t("messages.date.not_hour_working") unless params[:start_time].in_working_hours? && params[:end_date].in_working_hours?
+
+        activation = Activation.find_by(id: params[:id])
+        activation.date = params[:date] if params[:date]
+        activation.start_time = params[:start_time] if params[:start_time]
+        activation.end_time = params[:end_time] if params[:end_time]
+        activation.description = params[:description] if params[:description]
+        activation.save!
+
+        render json: { response: activation, status: 200 }, status: 200
       end
 
       private
