@@ -10,7 +10,6 @@ module Api
         param! :limit, Integer, default: 10
 
         availables = @office.availables.order("created_at DESC").page(params[:page]).per(params[:limit])
-        byebug
         authorize availables
         render json: { response: availables, status: 200 }, status: 200, adapter: :json, meta: pagination_dict(availables)
       end
