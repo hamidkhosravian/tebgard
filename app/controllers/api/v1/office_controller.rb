@@ -74,6 +74,16 @@ module Api
         render json: { response: offices, status: 200 }, status: 200
       end
 
+      def like
+        @office.liked_by current_user.profile
+        render json: {response: "like office.", status: 201 }
+      end
+
+      def unlike
+        @office.unliked_by current_user.profile
+        render json: {response: "unlike office.", status: 204}, status: 204
+      end
+
       private
         def set_office
           param! :uid, String, required: true, blank: false

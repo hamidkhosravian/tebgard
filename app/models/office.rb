@@ -9,6 +9,9 @@ class Office < ApplicationRecord
   reverse_geocoded_by :latitude, :longitude # can also be an IP address
   after_validation :geocode
 
+  acts_as_votable
+  acts_as_taggable_on :office_activity_tags
+
   validates :latitude, presence: true
   validates :longitude, presence: true
   validates :address, presence: true

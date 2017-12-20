@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       get      "wall/following"     => "relationship#following"
       post     "wall/:uid/follow"   => "relationship#create"
       delete   "wall/:uid/unfollow" => "relationship#destroy"
+      get      "walls/:uid/offices" => "office#wall_offices"
 
       # Doctor office
       post     "offices"      => "office#create"
@@ -42,7 +43,10 @@ Rails.application.routes.draw do
       put      "offices/:uid" => "office#update"
       delete   "offices/:uid" => "office#destroy"
       post     "offices/:uid/upload_file" => "office#upload_file"
-      get      "walls/:uid/offices" => "office#wall_offices"
+
+      #like or unlike office
+      post     "offices/:uid/like"   => "office#like"
+      delete   "offices/:uid/unlike" => "office#unlike"
 
       # office working hours
       get      "offices/:uid/working_hours" => "working_hours#index"

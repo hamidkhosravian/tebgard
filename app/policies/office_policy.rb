@@ -27,6 +27,14 @@ class OfficePolicy < ApplicationPolicy
     true
   end
 
+  def like?
+    true
+  end
+
+  def unlike?
+    true
+  end
+
   private
     def office
       record
