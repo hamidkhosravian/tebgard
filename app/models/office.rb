@@ -19,24 +19,35 @@ class Office < ApplicationRecord
   validates :description, presence: true
 
   before_validation :generate_uuid
+  before_create :set_location_address
 
   def working_hours
     wh = open_days.map do |day|
       Hash[day.day.to_sym, day.open_hours.map{|h| Hash[h.open_time.strftime("%T"), h.close_time.strftime("%T")]}.inject(:merge)]
     end
     WorkingHours::Config.working_hours =  merged = wh.reduce({}) { |aggregate, hash| aggregate.merge hash }
-    # WorkingHours::Config.time_zone = "Tehran"
+    WorkingHours::Config.time_zone = self.time_zone
   end
 
   private
+    def set_location_address
+      address = Geocoder.search("#{self.latitude},#{self.longitude}")[0]
+      zone = GoogleTimezone.fetch(self.latitude, self.longitude)
+      if address
+        self.location_address = address.address
+        self.time_zone = zone.time_zone_id
+      else
+        raise BadRequestError, I18n.t("messages.coordinate.unvalid")
+      end
+    end
 
-  def generate_random_hex(n = 1, predicate = proc {})
-    hex = SecureRandom.hex(n)
-    hex = SecureRandom.hex(n) while predicate.call(hex)
-    hex
-  end
+    def generate_random_hex(n = 1, predicate = proc {})
+      hex = SecureRandom.hex(n)
+      hex = SecureRandom.hex(n) while predicate.call(hex)
+      hex
+    end
 
-  def generate_uuid
-    self.uuid = generate_random_hex(16, ->(hex) { Office.exists?(uuid: hex) }) if new_record?
-  end
+    def generate_uuid
+      self.uuid = generate_random_hex(16, ->(hex) { Office.exists?(uuid: hex) }) if new_record?
+    end
 end

@@ -82,3 +82,6 @@ en:
       is_working_day: "your require date is in working hour."
       is_working_hour: "your require date is in working hour."
       date_cover: "the hours you want to set is used before."
+
+    coordinate:
+      unvalid: "your coordinate is not valid!"
