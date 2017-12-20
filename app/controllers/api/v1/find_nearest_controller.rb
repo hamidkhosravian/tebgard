@@ -27,6 +27,20 @@ module Api
 
         render json: offices, adapter: :json, meta: pagination_dict(offices)
       end
+
+      def offices_by_activities
+        param! :page, Integer, default: 1
+        param! :limit, Integer, default: 10
+        param! :distance, Integer, default: 5, max: 20, min: 3
+        param! :latitude, Float, required: true, blank: false
+        param! :longitude, Float, required: true, blank: false
+        param! :activities, Array, required: true, blank: false
+
+        offices = Office.tagged_with(params[:activities], any: true).near([params[:latitude],params[:longitude]],params[:distance], units: :km).order("created_at DESC").page(params[:page]).per(params[:limit])
+        authorize offices
+
+        render json: { response: offices, status: 200 }, status: 200
+      end
     end
   end
 end

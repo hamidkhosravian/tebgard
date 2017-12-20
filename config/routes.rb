@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       put      "offices/:uid" => "office#update"
       delete   "offices/:uid" => "office#destroy"
       post     "offices/:uid/upload_file" => "office#upload_file"
+      post     "offices/:uid/activities"   => "office#add_office_activities"
 
       #like or unlike office
       post     "offices/:uid/like"   => "office#like"
@@ -62,11 +63,13 @@ Rails.application.routes.draw do
       put      "offices/:uid/availables/:id" => "available#office_update"
       delete   "offices/:uid/availables/:id" => "available#destroy"
 
-      # add jobs like tag in doctor office
+      # find
+      post     "offices/offices_by_activities" => "article#offices_find_by_activities"
 
       # find nearest
       post     "nearest/offices" => "find_nearest#office"
       post     "nearest/offices_by_skills" => "find_nearest#offices_by_skills"
+      post     "nearest/offices_by_activities" => "find_nearest#offices_by_activities"
 
       # posts
       get      "posts"      => "post#index"
