@@ -66,7 +66,7 @@ gem "gibbon"
 gem "acts-as-taggable-on" # add tags
 gem "acts_as_votable" # like or dislike
 gem "geocoder"
-gem 'google_timezone'
+gem "google_timezone"
 gem "impressionist" # count views
 gem "telephone_number"
 
