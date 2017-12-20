@@ -74,6 +74,33 @@ module Api
         render json: { response: offices, status: 200 }, status: 200
       end
 
+      def add_office_activities
+        @office.office_activity_tag_list = params[:activities]
+        @office.save!
+        render json: {response: @office.office_activity_tag_list, status: 201 }
+      end
+
+      def like
+        @office.liked_by current_user.profile
+        render json: {response: "like office.", status: 201 }
+      end
+
+      def unlike
+        @office.unliked_by current_user.profile
+        render json: {response: "unlike office.", status: 204}, status: 204
+      end
+
+      def offices_find_by_activities
+        param! :activities, Array, required: true, blank: false
+        param! :page, Integer, default: 1
+        param! :limit, Integer, default: 10
+
+        offices = Office.tagged_with(params[:activities], any: true).order("created_at DESC").page(params[:page]).per(params[:limit])
+        authorize offices
+
+        render json: { response: offices, status: 200 }, status: 200
+      end
+
       private
         def set_office
           param! :uid, String, required: true, blank: false

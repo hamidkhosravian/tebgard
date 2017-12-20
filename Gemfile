@@ -53,6 +53,7 @@ gem "sidekiq-status"
 # Validation
 gem "validates_timeliness"
 gem "working_hours"
+
 # Error Tracker
 gem "airbrake", "~> 6.0"
 # Upload Handler
@@ -65,6 +66,7 @@ gem "gibbon"
 gem "acts-as-taggable-on" # add tags
 gem "acts_as_votable" # like or dislike
 gem "geocoder"
+gem "google_timezone"
 gem "impressionist" # count views
 gem "telephone_number"
 
