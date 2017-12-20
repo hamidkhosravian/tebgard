@@ -52,6 +52,7 @@ gem "sidekiq-status"
 
 # Validation
 gem "validates_timeliness"
+gem "working_hours"
 # Error Tracker
 gem "airbrake", "~> 6.0"
 # Upload Handler

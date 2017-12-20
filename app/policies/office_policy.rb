@@ -12,15 +12,15 @@ class OfficePolicy < ApplicationPolicy
   end
 
   def update?
-    true if profile.doctor? && active && wall == office.wall
+    true if profile.doctor? && active && @wall == office.wall
   end
 
   def destroy?
-    true if profile.doctor? && active && wall == office.wall
+    true if profile.doctor? && active && @wall == office.wall
   end
 
   def upload_file?
-    true if profile.doctor? && active && wall == office.wall
+    true if profile.doctor? && active && @wall == office.wall
   end
 
   def wall_offices?

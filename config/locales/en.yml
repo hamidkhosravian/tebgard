@@ -74,3 +74,11 @@ en:
 
     phone:
       normalize: "please check your phone number."
+
+    date:
+      date_distance: "distance between from_date and end_date cannot be bigger than 31 days."
+      not_working_day: "your require date is not in working day."
+      not_working_hour: "your require date is not in working hour."
+      is_working_day: "your require date is in working hour."
+      is_working_hour: "your require date is in working hour."
+      date_cover: "the hours you want to set is used before."

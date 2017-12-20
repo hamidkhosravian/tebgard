@@ -44,6 +44,20 @@ Rails.application.routes.draw do
       post     "offices/:uid/upload_file" => "office#upload_file"
       get      "walls/:uid/offices" => "office#wall_offices"
 
+      # office working hours
+      get      "offices/:uid/working_hours" => "working_hours#index"
+      get      "offices/:uid/working_hours/filter" => "working_hours#show"
+      post     "offices/:uid/working_hours" => "working_hours#create"
+      put      "offices/:uid/days/:day/hours/:id" => "working_hours#update"
+      delete   "offices/:uid/days/:day" => "working_hours#destroy_day"
+      delete   "offices/:uid/days/:day/hours/:id" => "working_hours#destroy_hour"
+
+      # office active or deactive special date
+      get      "offices/:uid/availables" => "available#office_available_index"
+      post     "offices/:uid/availables" => "available#office_available"
+      put      "offices/:uid/availables/:id" => "available#office_update"
+      delete   "offices/:uid/availables/:id" => "available#destroy"
+
       # add jobs like tag in doctor office
 
       # find nearest

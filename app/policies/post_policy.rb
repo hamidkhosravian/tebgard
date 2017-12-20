@@ -12,11 +12,11 @@ class PostPolicy < ApplicationPolicy
   end
 
   def update?
-    true if profile.doctor? && active && wall == post.wall
+    true if profile.doctor? && active && @wall == post.wall
   end
 
   def destroy?
-    true if profile.doctor? && active && wall == post.wall
+    true if profile.doctor? && active && @wall == post.wall
   end
 
   def comments?
